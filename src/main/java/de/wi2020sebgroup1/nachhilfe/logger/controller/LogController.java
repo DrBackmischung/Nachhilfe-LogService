@@ -1,28 +1,32 @@
-package main.java.de.wi2020sebgroup1.nachhilfe.logger.controller;
+package de.wi2020sebgroup1.nachhilfe.logger.controller;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import java.util.Date;
+
 import org.json.simple.JSONArray;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import java.util.Date;
+
+import de.wi2020sebgroup1.nachhilfe.logger.service.LogService;
+import de.wi2020sebgroup1.nachhilfe.logger.service.RESTService;
 
 @RestController
 @RequestMapping(value = "/log")
 public class LogController {
 
     // Initializing instance of Logger for Controller
-    private static final Logger log = LoggerFactory.getLogger(ELKController.class);
+    private static final Logger log = LoggerFactory.getLogger(LogController.class);
 
-    private final ELKService service;
+    @Autowired
+    private final LogService service;
 
-    private final RestService restService;
-
-    public LogController(ELKService service, RestService restService) {
+    @Autowired
+    private final RESTService restService;
+    
+    public LogController(LogService service, RESTService restService) {
         this.service = service;
         this.restService = restService;
     }
