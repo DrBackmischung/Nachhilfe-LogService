@@ -1,7 +1,6 @@
 package de.wi2020sebgroup1.nachhilfe.logger.controller;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.util.NoSuchElementException;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +8,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,10 +30,20 @@ public class LogController {
 		return new ResponseEntity<>(repo.findAll(),HttpStatus.OK);
 	}
 
+	@GetMapping("/{id}")
+	public ResponseEntity<Object> getSpecific(@PathVariable String id){
+		try {
+			return new ResponseEntity<Object>(repo.findById(id).get(), HttpStatus.OK);
+		}
+		catch(NoSuchElementException e) {
+			return new ResponseEntity<Object>("Log "+id+" nicht gefunden.", HttpStatus.NOT_FOUND);
+		}
+	}
+	
     @PostMapping(value = "/")
-    public ResponseEntity<Log> save() {
-    	Log l = new Log(UUID.randomUUID().toString(), "Test", "Mathis", new Date(2), new Time(3));
-    	return new ResponseEntity<>(repo.save(l), HttpStatus.CREATED);
+    public ResponseEntity<Log> save(@RequestBody Log l) {
+    	Log log = new Log(UUID.randomUUID().toString(), l.getMessage(), l.getSource(), l.getDate(), l.getTime());
+    	return new ResponseEntity<>(repo.save(log), HttpStatus.CREATED);
     }
 
 }

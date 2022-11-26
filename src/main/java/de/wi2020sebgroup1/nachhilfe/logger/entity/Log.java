@@ -1,8 +1,6 @@
 package de.wi2020sebgroup1.nachhilfe.logger.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
-import java.sql.Time;
 import java.util.Objects;
 
 import org.springframework.data.redis.core.RedisHash;
@@ -14,16 +12,28 @@ public class Log implements Serializable {
 	private String id;
 	private String message;
 	private String source;
-	private Date date;
-	private Time time;
+	private String date;
+	private String time;
 	
-	public Log(String id, String message, String source, Date date, Time time) {
+	public Log(String id, String message, String source, String date, String time) {
 		super();
 		this.id = id;
 		this.message = message;
 		this.source = source;
 		this.date = date;
 		this.time = time;
+	}
+	
+	public Log(String message, String source, String date, String time) {
+		super();
+		this.message = message;
+		this.source = source;
+		this.date = date;
+		this.time = time;
+	}
+	
+	public Log() {
+		
 	}
 
 	public String getId() {
@@ -50,19 +60,19 @@ public class Log implements Serializable {
 		this.source = source;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
-	public Time getTime() {
+	public String getTime() {
 		return time;
 	}
 
-	public void setTime(Time time) {
+	public void setTime(String time) {
 		this.time = time;
 	}
 
