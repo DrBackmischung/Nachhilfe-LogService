@@ -10,30 +10,36 @@ public class Log implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	private String id;
+	private String title;
 	private String message;
-	private String source;
+	private String type;
 	private String date;
 	private String time;
-	
-	public Log(String id, String message, String source, String date, String time) {
-		super();
-		this.id = id;
-		this.message = message;
-		this.source = source;
-		this.date = date;
-		this.time = time;
-	}
-	
-	public Log(String message, String source, String date, String time) {
-		super();
-		this.message = message;
-		this.source = source;
-		this.date = date;
-		this.time = time;
-	}
+	private String source;
 	
 	public Log() {
 		
+	}
+
+	public Log(String id, String title, String message, String type, String date, String time, String source) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.message = message;
+		this.type = type;
+		this.date = date;
+		this.time = time;
+		this.source = source;
+	}
+
+	public Log(String title, String message, String type, String date, String time, String source) {
+		super();
+		this.title = title;
+		this.message = message;
+		this.type = type;
+		this.date = date;
+		this.time = time;
+		this.source = source;
 	}
 
 	public String getId() {
@@ -44,6 +50,14 @@ public class Log implements Serializable {
 		this.id = id;
 	}
 
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
 	public String getMessage() {
 		return message;
 	}
@@ -52,12 +66,12 @@ public class Log implements Serializable {
 		this.message = message;
 	}
 
-	public String getSource() {
-		return source;
+	public String getType() {
+		return type;
 	}
 
-	public void setSource(String source) {
-		this.source = source;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getDate() {
@@ -76,15 +90,23 @@ public class Log implements Serializable {
 		this.time = time;
 	}
 
+	public String getSource() {
+		return source;
+	}
+
+	public void setSource(String source) {
+		this.source = source;
+	}
+
 	@Override
 	public String toString() {
-		return "Log [id=" + id + ", message=" + message + ", source=" + source + ", date=" + date + ", time=" + time
-				+ "]";
+		return "Log [id=" + id + ", title=" + title + ", message=" + message + ", type=" + type + ", date=" + date
+				+ ", time=" + time + ", source=" + source + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(date, id, message, source, time);
+		return Objects.hash(date, id, message, source, time, title, type);
 	}
 
 	@Override
@@ -98,7 +120,8 @@ public class Log implements Serializable {
 		Log other = (Log) obj;
 		return Objects.equals(date, other.date) && Objects.equals(id, other.id)
 				&& Objects.equals(message, other.message) && Objects.equals(source, other.source)
-				&& Objects.equals(time, other.time);
+				&& Objects.equals(time, other.time) && Objects.equals(title, other.title)
+				&& Objects.equals(type, other.type);
 	}
 	
 }
